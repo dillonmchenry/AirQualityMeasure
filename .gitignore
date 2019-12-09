@@ -1,2 +1,4 @@
 #ignores CSV
 *.csv
+
+.idea
