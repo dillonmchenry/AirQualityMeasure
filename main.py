@@ -1,8 +1,11 @@
 import csv,sys, math
 from sensor import Sensor
 from date import Date
+
 # List of sensors
 sensors = []
+
+# ---------------------------FUNCTIONS FOR USER OPTIONS------------------------------
 
 
 # Option 1
@@ -36,7 +39,9 @@ def location_mean(start, end, lat_min, long_min, radius="none", lat_max="none", 
         # Call single sensor over the timespan for each sensor
         single_sensor(sensor.get_id(), start, end)
 
+# -----------------------------------------------------------------------------------------
 
+# edits idiotic csv file
 def fixline(line):
     new = []
     for i in range(1, len(line), 2):
@@ -44,8 +49,9 @@ def fixline(line):
     final = "".join(new)
     return final.split(";")
 
+# ------------------------------ Checks if sensor is in area ----------------------------
 
-# Tests if lat long is in range of given parameters
+
 def in_square(loc, min, max):
     if min[0] <= loc[0] <= max[0] and min[1] <= loc[1] <= max[1]:
         return True
@@ -59,6 +65,8 @@ def in_circle(loc, center, radius):
         return True
     return False
 
+# -----------------------------------Main Program Flow-------------------------------------
+
 
 # Collects all sensors in list
 with open("sensors.csv", "rt") as f:
@@ -67,7 +75,7 @@ with open("sensors.csv", "rt") as f:
         sensors.append(Sensor(row["SensorID"], float(row["Latitude"]), float(row["Longitude"])))
 
 
-#Menu Flow
+# Menu Flow
 print("Welcome to The Air Quality Management System!\n")
 while True:
     print("Please select an action from the following menu (type '5' to exit)")
@@ -86,17 +94,30 @@ while True:
         print(single_sensor(id, start, end))
 
     elif choice == 2:
-        print("YO")
-        # Implement User interaction here
+        shape = input("Are you surveying a circle or square area? (square/circle)\n")
+        min_lat = min_long = max_lat = max_long = cent_lat = cent_long = radius = "none"
+        if shape == "square":
+            print("Enter the minimum latitude followed by the maximum latitude:\n")
+            min_lat = float(input())
+            max_lat = float(input())
+            print("Enter the minimum longitude followed by the maximum longitude:\n")
+            min_long = float(input())
+            max_long = float(input())
+        else:
+            print("Enter the latitude and longitude of your circles center:")
+            cent_lat = float(input())
+            cent_long = float(input())
+            radius = float(input("Enter the radius of your circular area:\n"))
+
+        start = input("Enter the start date of data collection (yyyy-mm-dd):\n")
+        end = input("Enter the end date of collection (yyyy-mm-dd) or 'none' to collect a stamp\n")
+
+        # Option 2 function call
 
     elif choice == 5:
         print("Thank you for choosing AQMS...")
         sys.exit()
 
-
-# for sensor in sensors:
-#   if in_range(sensor.get_loc()):
-#      print(str(sensor))
 
 
 
