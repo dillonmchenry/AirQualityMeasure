@@ -10,17 +10,30 @@ statuses = {}
 
 # Option 1
 def single_sensor(id, start, end="none"):
+    measures = {"O3": 0, "NO2": 0, "SO2": 0, "PM10": 0}
+    count = 0
     with open("data_10sensors_1year.csv", "rt") as data:
         reader = data.readlines()
         # Breaks up stupid ass csv
         real = []
         for i in range(2, len(reader)-1, 2):
             real = fixline(reader[i])
+            # checks id
             if real[1] == id:
                 curr = Date(real[0].split("T")[0])
+                # checks time span
                 if curr.in_span(start, end):
-                    print("Gather value")
+                    count += 1
+                    # adds value to correct measurement
+                    measures[real[2]] += float(real[3])
             real.clear()
+        if count == 0:
+            return "There were no results..."
+        else:
+            for key in measures:
+                measures[key] /= count/4.0
+            # Mobo's function call will be the return of the function
+            return measures
 
 
 # Option 2
@@ -37,7 +50,7 @@ def location_mean(start, end, lat_min, long_min, radius="none", lat_max="none", 
                 in_bounds.append(sensor)
 
     for sensor in in_bounds:
-        # Calls option 1 for each sensor
+        # Average the value of single sensor averages
         single_sensor(sensor.get_id(), start, end)
 
 
