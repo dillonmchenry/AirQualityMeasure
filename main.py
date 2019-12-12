@@ -4,7 +4,7 @@ from date import Date
 
 # List of sensors
 sensors = []
-
+statuses = {}
 # ---------------------------FUNCTIONS FOR USER OPTIONS------------------------------
 
 
@@ -25,6 +25,7 @@ def single_sensor(id, start, end="none"):
 
 # Option 2
 def location_mean(start, end, lat_min, long_min, radius="none", lat_max="none", long_max="none"):
+    # Finds sensors in bounds of border
     in_bounds = []
     if radius:
         for sensor in sensors:
@@ -36,10 +37,29 @@ def location_mean(start, end, lat_min, long_min, radius="none", lat_max="none", 
                 in_bounds.append(sensor)
 
     for sensor in in_bounds:
-        # Call single sensor over the timespan for each sensor
+        # Calls option 1 for each sensor
         single_sensor(sensor.get_id(), start, end)
 
+
+def status(stamp):
+    with open("data_10sensors_1year.csv", "rt") as data:
+        reader = data.readlines()
+        # Breaks up stupid ass csv
+        real = []
+        for i in range(2, len(reader)-1, 2):
+            real = fixline(reader[i])
+            if str(Date(real[0].split("T")[0])) == str(stamp):
+                if float(real[3]) >= 0.0:
+                    statuses[real[1]][0] += 1
+                else:
+                    statuses[real[1]][1] += 1
+        result = ""
+        for sensor in sensors:                         # Gets number of hits
+            result += sensor.get_id() + ": " + str(statuses[sensor.get_id()][0]) + ' hits, ' + str(statuses[sensor.get_id()][1]) + " negative readings \n"
+        return result
+
 # -----------------------------------------------------------------------------------------
+
 
 # edits idiotic csv file
 def fixline(line):
@@ -68,11 +88,13 @@ def in_circle(loc, center, radius):
 # -----------------------------------Main Program Flow-------------------------------------
 
 
-# Collects all sensors in list
+# Collects all sensors in list and initializes status dictionary
 with open("sensors.csv", "rt") as f:
     entries = csv.DictReader(f, fieldnames=None, delimiter=";", quoting=csv.QUOTE_ALL)
     for row in entries:
         sensors.append(Sensor(row["SensorID"], float(row["Latitude"]), float(row["Longitude"])))
+    for sensor in sensors:
+        statuses[sensor.get_id()] = [0, 0]  # hits and negative hits
 
 
 # Menu Flow
@@ -81,17 +103,19 @@ while True:
     print("Please select an action from the following menu (type '5' to exit)")
     print("1 - Gather Data from a single sensor")
     print("2 - Calculate mean air quality in a given area")
-    print("3 - Report all inactive sensors")
+    print("3 - Report all sensor statuses at given time")
     choice = int(input())
 
     if choice == 1:
-        id = input("Enter the id of the sensor:\n")
+        id = input("Enter the id of the sensor (Sensor#):\n")
         start = input("Enter the start date of data collection (yyyy-mm-dd):\n")
         end = input("Enter the end date of collection (yyyy-mm-dd) or 'none' to collect a stamp\n")
         start = Date(start)
         if end == "none":
             print(single_sensor(id, start))
-        print(single_sensor(id, start, end))
+        else:
+            end = Date(end)
+            print(single_sensor(id, start, end))
 
     elif choice == 2:
         shape = input("Are you surveying a circle or square area? (square/circle)\n")
@@ -113,6 +137,9 @@ while True:
         end = input("Enter the end date of collection (yyyy-mm-dd) or 'none' to collect a stamp\n")
 
         # Option 2 function call
+    elif choice == 3:
+        date = input("Enter the date to view Sensors statuses (yyyy-mm-dd):\n")
+        print(status(date))
 
     elif choice == 5:
         print("Thank you for choosing AQMS...")
