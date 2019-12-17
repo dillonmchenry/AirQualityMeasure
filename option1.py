@@ -8,6 +8,8 @@ def fixline(line):
     for i in range(1, len(line), 2):
         new.append(line[i])
     final = "".join(new)
+    
+    # Slice to remove double quote in front
     return final[1:].split(";")
 
 
