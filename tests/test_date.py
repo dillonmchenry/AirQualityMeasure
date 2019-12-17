@@ -1,4 +1,4 @@
-from ..date import Date
+from date import Date
 
 d1 = Date("2019-01-01")
 d2 = Date("2019-05-01")

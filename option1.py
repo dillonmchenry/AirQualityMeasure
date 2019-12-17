@@ -8,7 +8,7 @@ def fixline(line):
     for i in range(1, len(line), 2):
         new.append(line[i])
     final = "".join(new)
-    return final.split(";")
+    return final[1:].split(";")
 
 
 def single_sensor(id, start, end="none"):
