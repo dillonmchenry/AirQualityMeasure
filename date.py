@@ -1,9 +1,12 @@
 class Date:
     def __init__(self, fulldate):
         parsed = fulldate.split("-")
-        self.year = parsed[0]
-        self.month = parsed[1]
-        self.day = parsed[2]
+        if len(parsed) < 3 or len(fulldate) != 10:
+            self.year = "none"
+        else:
+            self.year = parsed[0]
+            self.month = parsed[1]
+            self.day = parsed[2]
 
     def get_year(self):
         return self.year
