@@ -1,0 +1,17 @@
+
+Option 1:
+
+test1.
+
+input: Sensor0, 2017-04-03, none
+expected: 9
+
+test3.
+
+input: Sensor4, 2017-04-03, 2017-04-09
+expected: 9
+
+input: Sensor5, 2018-07-04, none
+expected: There were no results...
+
+

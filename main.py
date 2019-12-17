@@ -135,14 +135,22 @@ while True:
         start = Date(start)
         if end == "none":
             result = "Aggregation of " + id + " on " + str(start) + ": "
-            result += str(single_sensor(id,start)) + " - " + reports[single_sensor(id,start)]
+            answer = single_sensor(id,start)
+            if isinstance(answer, int):
+                result += str(answer) + " - " + reports[answer]
+            else:
+                result += answer
             print("\n-------------------------------------------------------------")
             print(result)
             print("-------------------------------------------------------------\n")
         else:
             end = Date(end)
             result = "Aggregation of " + id + " from " + str(start) + " to " + str(end) + ": "
-            result += str(single_sensor(id, start, end)) + " - " + reports[single_sensor(id, start, end)]
+            answer = single_sensor(id, start, end)
+            if isinstance(answer, int):
+                result += str(answer) + " - " + reports[answer]
+            else:
+                result += answer
             print("\n-------------------------------------------------------------")
             print(result)
             print("-------------------------------------------------------------\n")
