@@ -1,0 +1,25 @@
+Sprint 1
+
+- Preprocessed info about sensors from sensors.csv
+- Created sensor class
+- Ability to select sensors in timeframe
+
+Sprint 2
+
+- Ability to tell if a sensor is within a user created location
+- Creation of date class to streamline checking dates
+- Method 3 which adds up all hits for each sensor and identifies negative readings
+
+Sprint 3
+
+- UML diagram
+- Sequence diagrams
+- Created AQI class to determine 1-10 scale of air quality in the previous problems
+
+Sprint 4
+
+- Wrote method to display groups of sensors with similar readings over a time
+- Split up four methods into their own .py files to make testing easier
+- Created testing suite for each method
+
+

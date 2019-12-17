@@ -41,7 +41,7 @@ while True:
         start = Date(start)
         if end == "none":
             result = "Aggregation of " + id + " on " + str(start) + ": "
-            answer = single_sensor(id,start)
+            answer = single_sensor(id, start)
             if isinstance(answer, int):
                 result += str(answer) + " - " + reports[answer]
             else:
