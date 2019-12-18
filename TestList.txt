@@ -34,4 +34,55 @@ test3.
 input: sensors, 2018-04-06, "none", 0.0, 0.0, 0.0, "none", "none"
 output: There were no results...
 
-  
+
+Option 3:
+
+test1.
+
+input: sensors, statuses, 2017-10-09
+output: 
+
+Sensor0: 192 hits, 0 negative readings 
+Sensor1: 192 hits, 0 negative readings 
+Sensor2: 192 hits, 0 negative readings 
+Sensor3: 192 hits, 0 negative readings 
+Sensor4: 192 hits, 0 negative readings 
+Sensor5: 192 hits, 0 negative readings 
+Sensor6: 192 hits, 0 negative readings 
+Sensor7: 192 hits, 0 negative readings 
+Sensor8: 192 hits, 0 negative readings 
+Sensor9: 192 hits, 0 negative readings 
+
+test2.
+
+input: sensors, statuses, 2020-10-10
+output:
+
+Sensor0: 0 hits, 0 negative readings 
+Sensor1: 0 hits, 0 negative readings 
+Sensor2: 0 hits, 0 negative readings 
+Sensor3: 0 hits, 0 negative readings 
+Sensor4: 0 hits, 0 negative readings 
+Sensor5: 0 hits, 0 negative readings 
+Sensor6: 0 hits, 0 negative readings 
+Sensor7: 0 hits, 0 negative readings 
+Sensor8: 0 hits, 0 negative readings 
+Sensor9: 0 hits, 0 negative readings
+
+Option 4:
+
+test1.
+
+input: sensors, 2017-03-11, 2017-03-12
+output:
+
+[[['Sensor0', 'Sensor3', 'Sensor4', 'Sensor8', 'Sensor9'], ['Sensor1', 'Sensor2', 'Sensor5', 'Sensor6', 'Sensor7']], [['Sensor0', 'Sensor8'], ['Sensor1', 'Sensor2', 'Sensor4', 'Sensor5', 'Sensor7', 'Sensor9'], ['Sensor3', 'Sensor6']], [['Sensor0', 'Sensor2', 'Sensor3', 'Sensor7', 'Sensor9'], ['Sensor1', 'Sensor4', 'Sensor5', 'Sensor6', 'Sensor8']], [['Sensor0', 'Sensor2', 'Sensor3', 'Sensor4', 'Sensor6', 'Sensor7', 'Sensor8', 'Sensor9'], ['Sensor1', 'Sensor5']]]
+
+
+test2.
+
+input: sensors, 2017-06-21, "none"
+
+[[['Sensor0', 'Sensor2'], ['Sensor1', 'Sensor5', 'Sensor6', 'Sensor8'], ['Sensor3', 'Sensor7'], ['Sensor4'], ['Sensor9']], [['Sensor0', 'Sensor1', 'Sensor5'], ['Sensor2', 'Sensor7', 'Sensor9'], ['Sensor3', 'Sensor8'], ['Sensor4', 'Sensor6']], [['Sensor0', 'Sensor1'], ['Sensor2', 'Sensor4', 'Sensor5'], ['Sensor3'], ['Sensor6', 'Sensor7'], ['Sensor8'], ['Sensor9']], [['Sensor0', 'Sensor9'], ['Sensor1', 'Sensor2'], ['Sensor3', 'Sensor5', 'Sensor8'], ['Sensor4', 'Sensor7'], ['Sensor6']]]
+
+

@@ -1,10 +1,10 @@
-import csv, sys, math
+import csv, sys
 from sensor import Sensor
 from date import Date
 from option1 import single_sensor
 from option2 import location_mean
 from option3 import status
-from aqi import AQI
+from option4 import similar_values
 
 # List of sensors, their reading counts, and aqi descriptions
 sensors = []
@@ -14,7 +14,6 @@ reports = ["Extremely Bad", "Very Bad", "Bad", "Poor", "Rather Poor", "Insuffici
 
 
 # -----------------------------------Main Program Flow-------------------------------------
-
 
 # Collects all sensors in list and initializes status dictionary
 with open("sensors.csv", "rt") as f:
@@ -32,6 +31,7 @@ while True:
     print("1 - Gather Data from a single sensor")
     print("2 - Calculate mean air quality in a given area")
     print("3 - Report all sensor statuses at given time")
+    print("4 - Group similar sensor readings over a given time")
     choice = int(input())
 
     if choice == 1:
@@ -116,6 +116,44 @@ while True:
         else:
             print("Processing...")
             print(status(sensors, statuses, str(date)))
+    elif choice == 4:
+        start = input("Enter the start date to compare sensor readings (yyyy-mm-dd):\n")
+        end = input("Enter the end date of comparison (yyyy-mm-dd) or 'none' to compare one day\n")
+        start = Date(start)
+        print("Processing....")
+        answer = ''
+        if end == "none":
+            answer = similar_values(sensors, start, "none")
+            print(answer)
+            print("-------------------------------------------------------------------------")
+            print("Similarity in material readings on " + str(start) + ":\n")
+        else:
+            end = Date(end)
+            answer = similar_values(sensors, start, end)
+            print(answer)
+            print("-------------------------------------------------------------------------")
+            print("Similarity in material readings from " + str(start) + " to " + str(end) + ":\n")
+
+        if answer == "There were no results":
+            print(answer)
+        else:
+            print("O3 Values")
+            print("--------------------------")
+            for i in range(len(answer[0])):
+                print("Cluster " + str(i+1) + ": " + str(answer[0][i]))
+            print("\nNO2 Values")
+            print("--------------------------")
+            for i in range(len(answer[1])):
+                print("Cluster " + str(i+1) + ": " + str(answer[1][i]))
+            print("\nSO2 Values")
+            print("--------------------------")
+            for i in range(len(answer[2])):
+                print("Cluster " + str(i+1) + ": " + str(answer[2][i]))
+            print("\nPM10 Values")
+            print("--------------------------")
+            for i in range(len(answer[3])):
+                print("Cluster " + str(i+1) + ": " + str(answer[3][i]))
+        print("\n----------------------------------------------------------------------------\n")
 
     elif choice == 5:
         print("Thank you for choosing AQMS...")

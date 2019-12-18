@@ -8,7 +8,6 @@ def fixline(line):
     for i in range(1, len(line), 2):
         new.append(line[i])
     final = "".join(new)
-    
     # Slice to remove double quote in front
     return final[1:].split(";")
 
@@ -18,8 +17,7 @@ def single_sensor(id, start, end="none"):
     count = 0
     with open("data_10sensors_1year.csv", "rt") as data:
         reader = data.readlines()
-        # Breaks up stupid ass csv
-        real = []
+
         for i in range(2, len(reader)-1, 2):
             real = fixline(reader[i])
             # checks id
