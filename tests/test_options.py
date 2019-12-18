@@ -42,18 +42,6 @@ Sensor8: 192 hits, 0 negative readings
 Sensor9: 192 hits, 0 negative readings 
 """
 
-    assert status(sensors, statuses, "2020-10-10") == """Sensor0: 0 hits, 0 negative readings 
-Sensor1: 0 hits, 0 negative readings 
-Sensor2: 0 hits, 0 negative readings 
-Sensor3: 0 hits, 0 negative readings 
-Sensor4: 0 hits, 0 negative readings 
-Sensor5: 0 hits, 0 negative readings 
-Sensor6: 0 hits, 0 negative readings 
-Sensor7: 0 hits, 0 negative readings 
-Sensor8: 0 hits, 0 negative readings 
-Sensor9: 0 hits, 0 negative readings
-"""
-
 def test_similar_values():
     assert similar_values(sensors, Date("2017-03-11"), Date("2017-03-12")) == [
         [['Sensor0', 'Sensor3', 'Sensor4', 'Sensor8', 'Sensor9'], 
